@@ -3,8 +3,20 @@ import 'dart:ui';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final Color backgroundColor = const Color(0xD9D9D9);
-  final Color buttonColor = const Color(0x254F3C);
+  final Color backgroundColor = const Color(0xFFD9D9D9);
+  final Color buttonColor = const Color(0xFF254F3C);
+
+  var isPasswordHidden = true.obs;
+
+  void togglePasswordVisibility() {
+  isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+  void login() {
+    isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+
 
   final count = 0.obs;
   @override
