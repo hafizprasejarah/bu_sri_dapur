@@ -6,13 +6,15 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/pesanan/bindings/pesanan_binding.dart';
+import '../modules/pesanan/views/pesanan_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.PAGE_VIEW;
 
   static final routes = [
     GetPage(
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.PAGE_VIEW,
       page: () => const PageViewView(),
       binding: PageViewBinding(),
+    ),
+    GetPage(
+      name: _Paths.PESANAN,
+      page: () => const PesananView(),
+      binding: PesananBinding(),
     ),
   ];
 }
