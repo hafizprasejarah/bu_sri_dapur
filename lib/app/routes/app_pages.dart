@@ -8,6 +8,10 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/pesanan/bindings/pesanan_binding.dart';
 import '../modules/pesanan/views/pesanan_view.dart';
+import '../modules/profil/bindings/profil_binding.dart';
+import '../modules/profil/views/profil_view.dart';
+import '../modules/riwayat/bindings/riwayat_binding.dart';
+import '../modules/riwayat/views/riwayat_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +40,16 @@ class AppPages {
       name: _Paths.PESANAN,
       page: () => const PesananView(),
       binding: PesananBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIWAYAT,
+      page: () => const RiwayatView(),
+      binding: RiwayatBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFIL,
+      page: () => const ProfilView(),
+      binding: ProfilBinding(),
     ),
   ];
 }
