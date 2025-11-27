@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 class PageViewController extends GetxController {
   var pageIndex = 0.obs;
+  final pageController = PageController();
   final Color backgroundColor = const Color(0xFFD9D9D9);
   final Color buttonColor = const Color(0xFF254F3C);
-  final pageController = PageController();
 
   void changePage(int index) {
     pageIndex.value = index;

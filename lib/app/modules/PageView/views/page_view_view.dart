@@ -10,51 +10,48 @@ class PageViewView extends GetView<PageViewController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 80,
-            width: double.infinity,
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: controller.buttonColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              )
-            ),
+      body: Container(
+        color: controller.backgroundColor,
+        child: SafeArea(child:
+        PageView(
+          controller: controller.pageController,
+          onPageChanged: (index) {
+            controller.pageIndex.value = index;
+          },
+          children: [
+            HomeView(),
+            PesananView()
+            // Home(),
+            // Center(child: Text("Cart Page")),
+            // Center(child: Text("Add Page")),
+            // Center(child: Text("History Page")),
+            // Center(child: Text("Profile Page")),
+          ],
+        )
+        ),
+      ),
+
+      bottomNavigationBar: new Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: controller.buttonColor,
+            primaryColor: controller.buttonColor,
+            textTheme: Theme.of(context).textTheme.copyWith(
+                bodySmall: new TextStyle(color: Colors.yellow)
+            )
           ),
-
-          Expanded(child: PageView(
-            controller: controller.pageController,
-            onPageChanged: (index) {
-              controller.pageIndex.value = index;
-            },
-            children: [
-              HomeView(),
-              PesananView()
-              // Home(),
-              // Center(child: Text("Cart Page")),
-              // Center(child: Text("Add Page")),
-              // Center(child: Text("History Page")),
-              // Center(child: Text("Profile Page")),
+          child: new BottomNavigationBar(
+            backgroundColor: controller.buttonColor,
+            currentIndex: controller.pageIndex.value,
+            selectedItemColor: Colors.white,
+            onTap: controller.changePage,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.history), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
             ],
-          )),
-        ],
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: controller.buttonColor,
-        currentIndex: controller.pageIndex.value,
-        onTap: controller.changePage,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
+          ), )
     ));
   }
 }

@@ -13,9 +13,8 @@ class HomeView extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("My Jonny", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text("Dapur Bu Sri", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 16),
-
           Container(
             height: 110,
             decoration: BoxDecoration(
