@@ -12,6 +12,7 @@ class PageViewView extends GetView<PageViewController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: controller.backgroundColor,
         child: SafeArea(child:

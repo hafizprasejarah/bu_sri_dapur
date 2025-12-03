@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PageViewController extends GetxController {
+  final Color textColor = const Color(0xFFE1DED4);
   var pageIndex = 0.obs;
   final pageController = PageController();
   final Color backgroundColor = const Color(0xFFD9D9D9);

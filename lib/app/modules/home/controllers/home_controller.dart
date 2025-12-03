@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  // warna statis
+  var searchText = "".obs;
+
+  void updateSearch(String value) {
+    searchText.value = value;
+  }
 
   final count = 0.obs;
   @override
