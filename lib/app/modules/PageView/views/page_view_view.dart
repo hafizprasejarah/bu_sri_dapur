@@ -1,7 +1,8 @@
 import 'package:bu_sri_dapur/app/modules/home/views/home_view.dart';
+import 'package:bu_sri_dapur/app/modules/menu/views/menu_view.dart';
+import 'package:bu_sri_dapur/app/modules/pemesanan/views/pemesanan_view.dart';
 import 'package:bu_sri_dapur/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:bu_sri_dapur/app/modules/profil/views/profil_view.dart';
-import 'package:bu_sri_dapur/app/modules/riwayat/views/riwayat_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/page_view_controller.dart';
@@ -23,9 +24,9 @@ class PageViewView extends GetView<PageViewController> {
           },
           children: [
             HomeView(),
-            PesananView(),
-            PesananView(),
-            RiwayatView(),
+            PemesananView(),
+            // PesananView(),
+            MenuView(),
             ProfilView()
           ],
         )

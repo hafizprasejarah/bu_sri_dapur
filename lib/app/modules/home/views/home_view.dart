@@ -1,3 +1,5 @@
+import 'package:bu_sri_dapur/app/modules/home/components/slider-menu-makanan.dart';
+import 'package:bu_sri_dapur/app/modules/home/components/slider-menu-minuman.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
@@ -10,6 +12,11 @@ class HomeView extends GetView<HomeController> {
     final Color textColor = Color(0xFFE1DED4);
     final Color backgroundColor = const Color(0xFFD9D9D9);
     final Color buttonColor = const Color(0xFF254F3C);
+    var isHidden = true.obs;
+
+    void toggleVisibility() {
+      isHidden.value = !isHidden.value;
+    }
 
     return SingleChildScrollView(
       padding: EdgeInsets.all(16),
@@ -36,7 +43,7 @@ class HomeView extends GetView<HomeController> {
                         backgroundColor: Colors.blueGrey.shade100,
                         backgroundImage: AssetImage('assets/images/Admin.jpg')
                       ),
-                      SizedBox(width: 20),
+                      SizedBox(width: 30),
 
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,14 +52,15 @@ class HomeView extends GetView<HomeController> {
                             "Admin Ireng",
                             style: TextStyle(
                               color: textColor,
-                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
                             ),
                           ),
                           Text(
                             "ID",
                             style: TextStyle(
                               color: textColor,
-                              fontSize: 16,
+                              fontSize: 14,
                             ),
                           ),
                         ],
@@ -62,10 +70,10 @@ class HomeView extends GetView<HomeController> {
                   SizedBox(height: 10),
                   Container(
                     width: MediaQuery.of(context).size.width ,
-                    height: 1,
+                    height: 1.5,
                     color: textColor,
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                 ],
               ),
               Row(
@@ -79,35 +87,42 @@ class HomeView extends GetView<HomeController> {
                           "Total pendapatan",
                           style: TextStyle(
                             color: textColor,
-                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
                           ),
                         ),
-                        SizedBox(height: 10),
-
                         Row(
                           children: [
                             Icon(Icons.credit_card, color: textColor, size: 20),
                             SizedBox(width: 5),
                             Expanded(
                               child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: Text(
-                                  "Rp. 100.000,00",
-                                  style: TextStyle(
-                                    color: textColor,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                child: Obx(() {
+                                  return Text(
+                                   isHidden.value ? "●●●●●●●●" : "Rp. 100.000,00",
+                                    style: TextStyle(
+                                      color: textColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                },)
                               ),
                             ),
 
                             SizedBox(width: 5),
-                            Icon(Icons.visibility_off, color: textColor, size: 20),
+                            Obx(() {
+                              return IconButton(
+                                  icon: Icon(
+                                    color: textColor,
+                                    isHidden.value?
+                                    Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                  onPressed: toggleVisibility
+                              );
+                            },)
                           ],
                         ),
                       ],
@@ -119,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                   // Garis pemisah
                   Container(
                     width: 1.5,
-                    height: 90,
+                    height: 70,
                     color: textColor,
                   ),
 
@@ -133,18 +148,18 @@ class HomeView extends GetView<HomeController> {
                           "Dilayani :",
                           style: TextStyle(
                             color: textColor,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                         SizedBox(height: 5),
                         Row(
                           children: [
-                            Icon(Icons.person, color: textColor, size: 30),
+                            Icon(Icons.person, color: textColor, size: 25),
                             SizedBox(width: 10),
                             Text(
                               "10",
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 16,
                                 color: textColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -156,39 +171,9 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 40),
-                child:
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: ()=>{},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          side:  BorderSide(
-                              color: textColor,
-                              width: 1
-                          )
-                      ),
-                    ),
-                    child:  Text(
-                      "Tambah Menu",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           )
         ),
-
 
         SizedBox(height: 20),
 
@@ -211,24 +196,70 @@ class HomeView extends GetView<HomeController> {
 
           SizedBox(height: 20),
 
-          Container(
-            height: 150,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 1)],
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Makanan",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
 
-          SizedBox(height: 20),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  side: const BorderSide(color: Colors.black, width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+                child: Text(
+                  "See full Menu",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: const MenuSliderLoop(),
+          ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Popular", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              TextButton(onPressed: () {}, child: Text("See full menu")),
+              Text(
+                "Minuman",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  side: const BorderSide(color: Colors.black, width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+                child: Text(
+                  "See full Menu",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ],
           ),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: const DrinkSliderLoop(),
+          )
+
 
           // GridView.count(
           //   crossAxisCount: 2,
@@ -237,6 +268,8 @@ class HomeView extends GetView<HomeController> {
           //   childAspectRatio: 0.75,
           //   children: List.generate(4, (index) => FoodCard()),
           // )
+
+          
         ],
       ),
     );

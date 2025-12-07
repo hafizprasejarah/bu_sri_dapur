@@ -1,14 +1,7 @@
 import 'package:get/get.dart';
 
-
-class HomeController extends GetxController {
-  // warna statis
-  var searchText = "".obs;
-
-
-  void updateSearch(String value) {
-    searchText.value = value;
-  }
+class MenuPageController  extends GetxController {
+  //TODO: Implement MenuController
 
   final count = 0.obs;
   @override

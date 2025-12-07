@@ -23,8 +23,8 @@ class PageViewController extends GetxController {
       label: "",
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.history),
-      label: "Riwayat",
+      icon: Icon(Icons.menu_book),
+      label: "Menu",
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person),
