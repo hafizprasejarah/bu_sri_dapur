@@ -37,10 +37,9 @@ class _MenuSliderLoopState extends State<MenuSliderLoop> {
     return CarouselSlider.builder(
       itemCount: menuItems.length,
       options: CarouselOptions(
-        height: 270,
+        height: 260,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
-        autoPlay: true,
         viewportFraction: 0.7,
       ),
       itemBuilder: (context, index, realIndex) {
@@ -70,7 +69,7 @@ class _MenuSliderLoopState extends State<MenuSliderLoop> {
                   item["image"],
                   height: 120,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
 

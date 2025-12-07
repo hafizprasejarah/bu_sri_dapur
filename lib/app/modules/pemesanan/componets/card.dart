@@ -67,7 +67,7 @@ class OrderCard extends StatelessWidget {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(item["name"]),
+                  Text(item["name"],style: TextStyle(),),
                   Text("Rp. ${item["price"]}  x${item["qty"]}"),
                 ],
               );

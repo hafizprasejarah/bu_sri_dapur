@@ -16,7 +16,7 @@ class PageViewController extends GetxController {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),
-      label: "Cart",
+      label: "Pesanan",
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.add),
@@ -38,7 +38,9 @@ class PageViewController extends GetxController {
       width: 70,
       height: 70,
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          changePage(2);
+        },
         backgroundColor: Colors.white,
         elevation: 0,
         shape: CircleBorder(

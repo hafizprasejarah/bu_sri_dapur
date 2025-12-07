@@ -28,7 +28,6 @@ class _DrinkSliderLoopState extends State<DrinkSliderLoop> {
         height: 260,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
-        autoPlay: true,
         viewportFraction: 0.7,
       ),
       itemBuilder: (context, index, realIndex) {
@@ -45,6 +44,7 @@ class _DrinkSliderLoopState extends State<DrinkSliderLoop> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -65,7 +65,7 @@ class _DrinkSliderLoopState extends State<DrinkSliderLoop> {
                 Text(item["price"], style: TextStyle(fontSize: 16)),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
