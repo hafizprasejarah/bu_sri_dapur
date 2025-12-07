@@ -10,10 +10,11 @@ class PemesananView extends GetView<PemesananController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE7E1D5),
+      backgroundColor: Color(0xFFE1DED4),
       appBar: AppBar(
         title: Text("Pesanan", style: TextStyle(
-          fontWeight: FontWeight.bold
+          fontWeight: FontWeight.w900,
+          fontSize: 20,
         ),),
         centerTitle: true,
         backgroundColor: Colors.transparent,

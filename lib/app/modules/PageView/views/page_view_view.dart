@@ -12,7 +12,7 @@ class PageViewView extends GetView<PageViewController> {
   const PageViewView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         color: controller.backgroundColor,
@@ -25,7 +25,7 @@ class PageViewView extends GetView<PageViewController> {
           children: [
             HomeView(),
             PemesananView(),
-            // PesananView(),
+            PesananView(),
             MenuView(),
             ProfilView()
           ],
@@ -33,28 +33,28 @@ class PageViewView extends GetView<PageViewController> {
         ),
       ),
 
-      bottomNavigationBar:
-      new Theme(
-        data: Theme.of(context).copyWith(
-        canvasColor: controller.buttonColor,
-        primaryColor: controller.buttonColor,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        splashFactory: NoSplash.splashFactory,
-        textTheme: Theme.of(context).textTheme.copyWith(
-            bodySmall: new TextStyle(color: Colors.yellow)
-        )
-    ),child: new BottomNavigationBar(
-      unselectedItemColor: Colors.grey,
-      currentIndex: controller.pageIndex.value,
-      selectedItemColor: Colors.white,
-      onTap: controller.changePage,
-      items: controller.items,
-      type: BottomNavigationBarType.fixed,
-    )),
+      bottomNavigationBar: Obx(() =>
+          Theme(
+              data: Theme.of(context).copyWith(
+                  canvasColor: controller.buttonColor,
+                  primaryColor: controller.buttonColor,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashFactory: NoSplash.splashFactory,
+                  textTheme: Theme.of(context).textTheme.copyWith(
+                      bodySmall: new TextStyle(color: Colors.yellow)
+                  )
+              ),child: new BottomNavigationBar(
+            unselectedItemColor: Colors.grey,
+            currentIndex: controller.pageIndex.value,
+            selectedItemColor: Colors.white,
+            onTap: controller.changePage,
+            items: controller.items,
+            type: BottomNavigationBarType.fixed,
+          ))),
       floatingActionButton: controller.floatingActionButton(),
       floatingActionButtonLocation:
       FloatingActionButtonLocation.miniCenterDocked,
-    ));
+    );
   }
 }
