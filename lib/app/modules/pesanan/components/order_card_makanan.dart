@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrderItemCard extends StatelessWidget {
+class OrderItemCardMakanan extends StatelessWidget {
   final bool isSelected;
   final int quantity;
   final String image;
@@ -12,7 +12,7 @@ class OrderItemCard extends StatelessWidget {
   final VoidCallback onAdd;
   final VoidCallback onRemove;
 
-  const OrderItemCard({
+  const OrderItemCardMakanan({
     super.key,
     required this.isSelected,
     required this.quantity,
@@ -92,7 +92,7 @@ class OrderItemCard extends StatelessWidget {
                 ),
                 Text(
                   "$subtitle • Rp. ${price.toStringAsFixed(0)}",
-                  style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                  style: TextStyle(fontSize: 10, color: Colors.grey[600]),
                 ),
               ],
             ),

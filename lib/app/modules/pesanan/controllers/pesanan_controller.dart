@@ -1,91 +1,138 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PesananController extends GetxController {
-  // kategori
-  var categories = ["Makanan", "Minuman"];
-  var selectedCategory = "Makanan".obs;
+  // ================== VIEW SWITCHING ==================
+  RxString selectedView = "Makanan".obs;
 
-  // data dummy
-  var allItems = [
-    {
-      "image": "assets/images/bakso.jpg",
-      "title": "Bakso",
-      "kategori": "Makanan",
-      "price": 24000
-    },
-    {
-      "image": "assets/images/cold_brew.jpg",
-      "title": "Es Teh",
-      "kategori": "Minuman",
-      "price": 5000
-    },
-    {
-      "image": "assets/images/Nasi Goreng.jpg",
-      "title": "Nasi Goreng",
-      "kategori": "Makanan",
-      "price": 20000
-    },
-    {
-      "image": "assets/images/cappucino.jpg",
-      "title": "Jus Mangga",
-      "kategori": "Minuman",
-      "price": 10000
-    },
-  ].obs;
+  // ================== DATA MAKANAN ==================
+  final List<Map<String, dynamic>> makanan = [
+    {"title": "Nasi Goreng", "price": 15000, "image": "assets/images/Nasi Goreng.jpg"},
+    {"title": "Ayam Geprek", "price": 18000, "image": "assets/images/Sate Ayam.jpg"},
+  ];
 
-  // checklist (akan diisi sesuai panjang filteredItems)
-  var selectedList = <bool>[].obs;
+  RxList<bool> selectedMakanan = <bool>[].obs;
+  RxList<int> qtyMakanan = <int>[].obs;
 
-  // quantity tiap item (global berdasarkan index allItems)
-  var quantities = List<int>.filled(20, 0).obs;
+  // ================== DATA MINUMAN ==================
+  final List<Map<String, dynamic>> minuman = [
+    {"title": "Es Teh", "price": 5000, "image": "assets/images/cappucino.jpg"},
+    {"title": "Jus Jeruk", "price": 10000, "image": "assets/images/coffe_latte.jpg"},
+  ];
 
-  // -----------------------
+  RxList<bool> selectedMinuman = <bool>[].obs;
+  RxList<int> qtyMinuman = <int>[].obs;
 
+  RxBool showOrderBar = false.obs;
+
+  RxBool showDetailBottom = false.obs;
+
+  void goToDetail() {
+    showDetailBottom.value = true;
+  }
+
+  void backToSummary() {
+    showDetailBottom.value = false;
+  }
+
+  List<Map<String, dynamic>> getSelectedItems() {
+    List<Map<String, dynamic>> items = [];
+
+    for (int i = 0; i < makanan.length; i++) {
+      if (selectedMakanan[i] && qtyMakanan[i] > 0) {
+        items.add({
+          "title": makanan[i]["title"],
+          "qty": qtyMakanan[i],
+          "price": makanan[i]["price"],
+        });
+      }
+    }
+
+    for (int i = 0; i < minuman.length; i++) {
+      if (selectedMinuman[i] && qtyMinuman[i] > 0) {
+        items.add({
+          "title": minuman[i]["title"],
+          "qty": qtyMinuman[i],
+          "price": minuman[i]["price"],
+        });
+      }
+    }
+
+    return items;
+  }
+
+  // =====================================================
+  // INIT
+  // =====================================================
   @override
   void onInit() {
     super.onInit();
-    resetChecklist(); // pertama kali load
+
+    // Generate checkbox dan quantity default
+    selectedMakanan.value = List.generate(makanan.length, (_) => false);
+    qtyMakanan.value = List.generate(makanan.length, (_) => 1);
+
+    selectedMinuman.value = List.generate(minuman.length, (_) => false);
+    qtyMinuman.value = List.generate(minuman.length, (_) => 1);
   }
 
-  // ambil list item berdasarkan kategori
-  List<Map<String, dynamic>> get filteredItems {
-    return allItems
-        .where((e) => e["kategori"] == selectedCategory.value)
-        .toList();
+  // =====================================================
+  // ACTION MAKANAN
+  // =====================================================
+  void toggleMakanan(int i) {
+    selectedMakanan[i] = !selectedMakanan[i];
+    checkOrderBar();
   }
 
-  // ubah kategori
-  void filterCategory(String cat) {
-    selectedCategory.value = cat;
-    resetChecklist();
+  void addQtyMakanan(int i) => qtyMakanan[i]++;
+  void removeQtyMakanan(int i) {
+    if (qtyMakanan[i] > 1) qtyMakanan[i]--;
   }
 
-  // select checklist
-  void selectItem(int index) {
-    if (index < selectedList.length) {
-      selectedList[index] = !selectedList[index];
-      selectedList.refresh();
+  // =====================================================
+  // ACTION MINUMAN
+  // =====================================================
+  void toggleMinuman(int i) {
+    selectedMinuman[i] = !selectedMinuman[i];
+    checkOrderBar();
+  }
+
+
+  void checkOrderBar() {
+    bool hasSelected = selectedMakanan.contains(true) ||
+        selectedMinuman.contains(true);
+
+    showOrderBar.value = hasSelected;
+  }
+
+
+  void addQtyMinuman(int i) => qtyMinuman[i]++;
+  void removeQtyMinuman(int i) {
+    if (qtyMinuman[i] > 1) qtyMinuman[i]--;
+  }
+
+  // =====================================================
+  // TOTAL SEMUA PESANAN
+  // =====================================================
+  int get totalHarga {
+    int total = 0;
+
+    for (int i = 0; i < makanan.length; i++) {
+      if (selectedMakanan[i]) {
+        int price = (makanan[i]["price"] as num).toInt();
+        int qty = (qtyMakanan[i] as num).toInt();
+        total += price * qty;
+      }
     }
-  }
 
-  // RESET checklist ketika kategori berubah
-  void resetChecklist() {
-    int itemCount = filteredItems.length;
-
-    // isi ulang selectedList sesuai jumlah item
-    selectedList.value = List.generate(itemCount, (_) => false);
-  }
-
-  // quantity
-  void increment(int index) {
-    quantities[index]++;
-    quantities.refresh();
-  }
-
-  void decrement(int index) {
-    if (quantities[index] > 0) {
-      quantities[index]--;
-      quantities.refresh();
+    for (int i = 0; i < minuman.length; i++) {
+      if (selectedMinuman[i]) {
+        int price = (minuman[i]["price"] as num).toInt();
+        int qty = (qtyMinuman[i] as num).toInt();
+        total += price * qty;
+      }
     }
+
+    return total;
   }
 }

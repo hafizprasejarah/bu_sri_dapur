@@ -25,7 +25,7 @@ class _DrinkSliderLoopState extends State<DrinkSliderLoop> {
       itemCount: menuItems.length,
       carouselController: buttonCarouselController,
       options: CarouselOptions(
-        height: 260,
+        height: 250,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
         viewportFraction: 0.7,

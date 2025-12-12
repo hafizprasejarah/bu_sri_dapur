@@ -8,6 +8,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/menu/bindings/menu_binding.dart';
 import '../modules/menu/views/menu_view.dart';
+import '../modules/pembayaran/bindings/pembayaran_binding.dart';
+import '../modules/pembayaran/views/pembayaran_view.dart';
 import '../modules/pemesanan/bindings/pemesanan_binding.dart';
 import '../modules/pemesanan/views/pemesanan_view.dart';
 import '../modules/pesanan/bindings/pesanan_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.MENU,
       page: () => const MenuView(),
       binding: MenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.PEMBAYARAN,
+      page: () => const PembayaranView(),
+      binding: PembayaranBinding(),
     ),
   ];
 }

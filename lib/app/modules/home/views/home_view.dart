@@ -203,34 +203,41 @@ class HomeView extends GetView<HomeController> {
             ),
 
             // ==================== MAKANAN =====================
-            SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Makanan",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  _seeMoreButton(),
-                ],
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Makanan",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    _seeMoreButton(),
+                  ],
+                ),
               ),
             ),
+
             SliverPadding(
               padding: EdgeInsets.all(16),
               sliver: SliverToBoxAdapter(child: const MenuSliderLoop()),
             ),
 
             // ==================== MINUMAN =====================
-            SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Minuman",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  _seeMoreButton(),
-                ],
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Minuman",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    _seeMoreButton(),
+                  ],
+                ),
               ),
             ),
 

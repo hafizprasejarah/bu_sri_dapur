@@ -37,7 +37,7 @@ class _MenuSliderLoopState extends State<MenuSliderLoop> {
     return CarouselSlider.builder(
       itemCount: menuItems.length,
       options: CarouselOptions(
-        height: 260,
+        height: 250,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
         viewportFraction: 0.7,
