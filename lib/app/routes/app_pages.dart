@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/PageView/bindings/page_view_binding.dart';
 import '../modules/PageView/views/page_view_view.dart';
+import '../modules/editmenu/bindings/editmenu_binding.dart';
+import '../modules/editmenu/views/editmenu_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -16,6 +18,8 @@ import '../modules/pesanan/bindings/pesanan_binding.dart';
 import '../modules/pesanan/views/pesanan_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
+import '../modules/tambahmenu/bindings/tambahmenu_binding.dart';
+import '../modules/tambahmenu/views/tambahmenu_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +68,16 @@ class AppPages {
       name: _Paths.PEMBAYARAN,
       page: () => const PembayaranView(),
       binding: PembayaranBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAHMENU,
+      page: () => const TambahmenuView(),
+      binding: TambahmenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITMENU,
+      page: () => const EditmenuView(),
+      binding: EditmenuBinding(),
     ),
   ];
 }

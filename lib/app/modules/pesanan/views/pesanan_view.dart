@@ -13,14 +13,67 @@ class PesananView extends GetView<PesananController> {
     return Scaffold(
       backgroundColor: const Color(0xFFE1DED4),
       bottomNavigationBar: Obx(() {
+        if (controller.isLoadingPembayaran.value) {
+          return _loadingBottomBar();
+        }
+
+        if (controller.StatusPembayaran.value == "success") {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              controller.StatusPembayaran.value = "";
+              controller.showOrderBar.value = false;
+              controller.showDetailBottom.value = false;
+
+              // RESET DATA ORDER
+              controller.selectedMakanan.value =
+              List<bool>.filled(controller.makanan.length, false);
+
+              controller.selectedMinuman.value =
+              List<bool>.filled(controller.minuman.length, false);
+
+              controller.qtyMakanan.value =
+              List<int>.filled(controller.makanan.length, 1);
+
+              controller.qtyMinuman.value =
+              List<int>.filled(controller.minuman.length, 1);
+            },
+            child: _paymentSuccessBottomBar(),
+          );
+        }
+
+        if (controller.StatusPembayaran.value == "pending") {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              controller.StatusPembayaran.value = "";
+              controller.showOrderBar.value = false;
+              controller.showDetailBottom.value = false;
+
+              // RESET DATA ORDER
+              controller.selectedMakanan.value =
+              List<bool>.filled(controller.makanan.length, false);
+
+              controller.selectedMinuman.value =
+              List<bool>.filled(controller.minuman.length, false);
+
+              controller.qtyMakanan.value =
+              List<int>.filled(controller.makanan.length, 1);
+
+              controller.qtyMinuman.value =
+              List<int>.filled(controller.minuman.length, 1);
+            },
+            child: _paymentPendingBottomBar(),
+          );
+        }
+
+
         if (!controller.showOrderBar.value) return const SizedBox();
 
-        // jika mode detail aktif
         if (controller.showDetailBottom.value) {
           return _orderDetailBottomBar();
         }
 
-        // default mode
         return _orderSummaryBottomBar();
       }),
 
@@ -242,13 +295,11 @@ Widget _orderSummaryBottomBar() {
     ),
   );
 }
-
 Widget _orderDetailBottomBar() {
   final c = Get.find<PesananController>();
-  final height = Get.mediaQuery.size.height * 0.40; // 40%
+  final height = Get.mediaQuery.size.height * 0.55; // dinaikkan 55%
 
-  // ambil list pesanan
-  final pesanan = c.getSelectedItems(); // nanti kita buat fungsinya
+  final pesanan = c.getSelectedItems(); // list pesanan
 
   return Container(
     height: height,
@@ -270,27 +321,40 @@ Widget _orderDetailBottomBar() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
-          child: Container(
-            width: 50,
-            height: 5,
-            margin: const EdgeInsets.only(bottom: 15),
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(50),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "Nama Pembeli",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-          ),
+            TextButton(onPressed: () {
+              c.showDetailBottom.value = false;
+            },
+                child: Text(
+                  "Edit Pesanan",
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+            )
+          ],
         ),
+        const Text("Joseph",
+            style: TextStyle(fontSize: 14, color: Colors.black87)),
+
+        const SizedBox(height: 15),
 
         const Text(
           "Rincian Pesanan",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 8),
 
-        // list pesanan
+        // LIST PESANAN (lebih besar)
         Expanded(
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             itemCount: pesanan.length,
             itemBuilder: (context, index) {
               final item = pesanan[index];
@@ -299,8 +363,15 @@ Widget _orderDetailBottomBar() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${item['title']} x${item['qty']}"),
-                    Text("Rp ${item['price'] * item['qty']}"),
+                    Text(
+                      "${item['title']} x${item['qty']}",
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      "Rp ${item['price'] * item['qty']}",
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
                   ],
                 ),
               );
@@ -310,29 +381,186 @@ Widget _orderDetailBottomBar() {
 
         const SizedBox(height: 10),
 
-        // konfirmasi button
-        GestureDetector(
-          onTap: () {
-            // nanti kirim ke firebase
-            debugPrint("Konfirmasi pesanan!");
-          },
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(16),
+        const Text(
+          "Pembayaran",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+
+        Obx(() => Row(
+          children: [
+            Radio<String>(
+              value: "sekarang",
+              groupValue: c.metodePembayaran.value,
+              onChanged: (val) => c.pilihPembayaran(val!),
             ),
-            child: const Center(
-              child: Text(
-                "Konfirmasi Pesanan",
-                style: TextStyle(color: Colors.white, fontSize: 16),
+            const Text("Bayar Sekarang"),
+
+            const SizedBox(width: 20),
+
+            Radio<String>(
+              value: "nanti",
+              groupValue: c.metodePembayaran.value,
+              onChanged: (val) => c.pilihPembayaran(val!),
+            ),
+            const Text("Bayar Nanti"),
+          ],
+        )),
+
+        const SizedBox(height: 10),
+
+        // TOTAL + KONFIRMASI
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Total",
+                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                ),
+                Text(
+                  "Rp ${c.totalHarga}",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+
+            GestureDetector(
+              onTap: () {
+                c.konfirmasiPembayaran();
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Text(
+                  "Konfirmasi",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
-            ),
-          ),
+            )
+          ],
         )
       ],
     ),
   );
 }
 
+Widget _loadingBottomBar() {
+  return Container(
+    height: Get.mediaQuery.size.height * 0.20,
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+    ),
+    child: const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
+}
+
+Widget _paymentSuccessBottomBar() {
+  return Container(
+    height: Get.mediaQuery.size.height * 0.40,
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Icon(Icons.check_circle, size: 100, color: Colors.green),
+        SizedBox(height: 10),
+        Text(
+          "Pembayaran Telah di konfirmasi",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Silahkan melanjutkan pesanan anda",
+          style: TextStyle(fontSize: 14),
+        ),
+        SizedBox(height: 20),
+        Text("Klik dimana pun untuk melanjutkan",
+            style: TextStyle(fontSize: 12, color: Colors.black54)),
+      ],
+    ),
+  );
+}
+
+Widget _paymentPendingBottomBar() {
+  return Container(
+    height: Get.mediaQuery.size.height * 0.45,
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.close, size: 100, color: Colors.red),
+        const SizedBox(height: 10),
+        const Text(
+          "Menunggu Pembayaran",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 5),
+        const Text(
+          "Tambah pesanan atau konfirmasi pembayaran",
+          style: TextStyle(fontSize: 14),
+        ),
+        const SizedBox(height: 20),
+
+        // tombol tambah
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text("+ Tambah",
+                  style: TextStyle(color: Colors.white, fontSize: 14)),
+            ),
+            const SizedBox(width: 20),
+
+            // tombol bayar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text("Bayar",
+                  style: TextStyle(color: Colors.white, fontSize: 14)),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 20),
+        const Text("Klik dimana pun untuk melanjutkan",
+            style: TextStyle(fontSize: 12, color: Colors.black54)),
+      ],
+    ),
+  );
+}

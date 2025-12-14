@@ -5,14 +5,24 @@ class PesananController extends GetxController {
   // ================== VIEW SWITCHING ==================
   RxString selectedView = "Makanan".obs;
 
+  RxList<bool> selectedMakanan = <bool>[].obs;
+  RxList<int> qtyMakanan = <int>[].obs;
+  RxList<bool> selectedMinuman = <bool>[].obs;
+  RxList<int> qtyMinuman = <int>[].obs;
+
+  RxBool showOrderBar = false.obs;
+  RxBool showDetailBottom = false.obs;
+
+  var metodePembayaran = "sekarang".obs;
+
+  var StatusPembayaran = "".obs; // "", success, pending
+  var isLoadingPembayaran = false.obs;
+
   // ================== DATA MAKANAN ==================
   final List<Map<String, dynamic>> makanan = [
     {"title": "Nasi Goreng", "price": 15000, "image": "assets/images/Nasi Goreng.jpg"},
     {"title": "Ayam Geprek", "price": 18000, "image": "assets/images/Sate Ayam.jpg"},
   ];
-
-  RxList<bool> selectedMakanan = <bool>[].obs;
-  RxList<int> qtyMakanan = <int>[].obs;
 
   // ================== DATA MINUMAN ==================
   final List<Map<String, dynamic>> minuman = [
@@ -20,12 +30,12 @@ class PesananController extends GetxController {
     {"title": "Jus Jeruk", "price": 10000, "image": "assets/images/coffe_latte.jpg"},
   ];
 
-  RxList<bool> selectedMinuman = <bool>[].obs;
-  RxList<int> qtyMinuman = <int>[].obs;
 
-  RxBool showOrderBar = false.obs;
 
-  RxBool showDetailBottom = false.obs;
+  void pilihPembayaran(String value) {
+    metodePembayaran.value = value;
+  }
+
 
   void goToDetail() {
     showDetailBottom.value = true;
@@ -135,4 +145,18 @@ class PesananController extends GetxController {
 
     return total;
   }
+
+  void konfirmasiPembayaran() async {
+    isLoadingPembayaran.value = true;
+
+    await Future.delayed(const Duration(seconds: 2)); // loading simulasi
+
+    if (metodePembayaran.value == "sekarang") {
+      StatusPembayaran.value = "success";
+    } else {
+      StatusPembayaran.value = "pending";
+    }
+    isLoadingPembayaran.value = false;
+  }
+
 }

@@ -8,5 +8,6 @@ class MenuBinding extends Bindings {
     Get.lazyPut<MenuPageController >(
       () => MenuPageController (),
     );
+
   }
 }
