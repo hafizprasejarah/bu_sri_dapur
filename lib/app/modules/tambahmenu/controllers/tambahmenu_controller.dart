@@ -31,6 +31,7 @@ class TambahmenuController extends GetxController {
       );
     }
   }
+
   final count = 0.obs;
   @override
   void onInit() {
