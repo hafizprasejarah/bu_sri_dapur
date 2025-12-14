@@ -1,11 +1,17 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditmenuController extends GetxController {
   RxString kategori = "Makanan".obs;
   final ImagePicker picker = ImagePicker();
+
+  late TextEditingController namaController;
+  late TextEditingController hargaController;
+
+  late String imageUrl;
 
   final List<Map<String, dynamic>> makanan = [
     {
@@ -60,6 +66,14 @@ class EditmenuController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    final args = Get.arguments;
+
+
+
+    namaController = TextEditingController(text: args['title']);
+    hargaController = TextEditingController(text: args['price'].toString());
+    kategori.value = args['kategori'] ?? "Makanan";
+    imageUrl = args['image'];
   }
 
   @override
@@ -70,6 +84,8 @@ class EditmenuController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    namaController.dispose();
+    hargaController.dispose();
   }
 
   void increment() => count.value++;

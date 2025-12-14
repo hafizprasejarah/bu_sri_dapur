@@ -1,8 +1,6 @@
-import 'package:bu_sri_dapur/app/modules/tambahmenu/views/tambahmenu_view.dart';
 import 'package:bu_sri_dapur/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../editmenu/views/editmenu_view.dart';
 import '../controllers/menu_page_controller.dart';
 
 class MenuView extends GetView<MenuPageController> {
@@ -105,6 +103,7 @@ class MenuView extends GetView<MenuPageController> {
                       title: list[i]["title"],
                       price: list[i]["price"],
                       image: list[i]["image"],
+                      kategori: list[i]["kategori"],
                       checked: controller.selectedView.value == "Makanan"
                           ? controller.selectedMakanan[i]
                           : controller.selectedMinuman[i],
@@ -113,13 +112,16 @@ class MenuView extends GetView<MenuPageController> {
                         onEdit: () {
                           Get.toNamed(
                             Routes.EDITMENU,
-                            // arguments: {
-                            //   'id': id,
-                            //   'title': title,
-                            //   'price': price,
-                            //   'image': image,
-                            // },
+                            arguments: {
+                              'id': list[i]["id"],
+                              'title': list[i]["title"],
+                              'price': list[i]["price"],
+                              'image': list[i]["image"],
+                              'kategori': list[i]["kategori"],
+                            },
+
                           );
+                          print( list[i]["id"],);
                         },
                     ));
                   },
@@ -150,6 +152,7 @@ Widget _tab(String text, bool active, VoidCallback onTap) {
 Widget _menuCard({
   required String id,
   required String title,
+  required String kategori,
   required int price,
   required String image,
   required bool checked,

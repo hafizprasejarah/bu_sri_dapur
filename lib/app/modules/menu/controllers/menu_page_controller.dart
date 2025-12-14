@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 class MenuPageController  extends GetxController {
@@ -9,19 +9,22 @@ class MenuPageController  extends GetxController {
   RxList<bool> selectedMakanan = <bool>[].obs;
   RxList<bool> selectedMinuman = <bool>[].obs;
 
+
   // ================== DATA ==================
   final List<Map<String, dynamic>> makanan = [
     {
       "id": "mkn_001",
       "title": "Kuentang",
       "price": 24000,
-      "image": "assets/images/Mie Ayam.jpg"
+      "image": "assets/images/Mie Ayam.jpg",
+      "kategori": "Makanan",
     },
     {
       "id": "mkn_002",
       "title": "Bakso",
       "price": 24000,
-      "image": "assets/images/bakso.jpg"
+      "image": "assets/images/bakso.jpg",
+      "kategori": "Makanan",
     },
   ];
 
@@ -30,7 +33,8 @@ class MenuPageController  extends GetxController {
       "id": "mnm_001",
       "title": "Es Teh",
       "price": 5000,
-      "image": "assets/images/cold_brew.jpg"
+      "image": "assets/images/cold_brew.jpg",
+      "kategori": "Minuman",
     },
   ];
 

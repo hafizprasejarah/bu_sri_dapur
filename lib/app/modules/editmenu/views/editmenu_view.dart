@@ -4,8 +4,12 @@ import '../controllers/editmenu_controller.dart';
 
 class EditmenuView extends GetView<EditmenuController> {
   const EditmenuView({super.key});
+
+
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
         backgroundColor: Color(0xFFE1DED4),
         appBar: AppBar(
@@ -38,7 +42,8 @@ class EditmenuView extends GetView<EditmenuController> {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: const TextField(
+                    child: TextField(
+                      controller: controller.namaController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Masukkan Nama Menu",
@@ -69,7 +74,8 @@ class EditmenuView extends GetView<EditmenuController> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              child: const TextField(
+                              child: TextField(
+                                controller: controller.hargaController,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -152,22 +158,20 @@ class EditmenuView extends GetView<EditmenuController> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: controller.imageFile.value == null
-                                    ? const Center(
-                                  child: Icon(
-                                    Icons.image_outlined,
-                                    size: 40,
-                                    color: Colors.grey,
-                                  ),
-                                )
-                                    : ClipRRect(
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
-                                  child: Image.file(
+                                  child: controller.imageFile.value != null
+                                      ? Image.file(
                                     controller.imageFile.value!,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
+                                  )
+                                      : Image.network(
+                                    controller.imageUrl,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
                                   ),
-                                ),
+                                )
                               ),
                             ),
 
