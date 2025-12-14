@@ -123,8 +123,106 @@ class TambahmenuView extends GetView<TambahmenuController> {
                   ),
                 ),
               ],
-            )
+            ),
 
+            const SizedBox(height: 20),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Gambar",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                Obx(() {
+                  return Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      GestureDetector(
+                        onTap: controller.pickImageFromGallery,
+                        child: Container(
+                          width: double.infinity,
+                          height: 160,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: controller.imageFile.value == null
+                              ? const Center(
+                            child: Icon(
+                              Icons.image_outlined,
+                              size: 40,
+                              color: Colors.grey,
+                            ),
+                          )
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.file(
+                              controller.imageFile.value!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                      Positioned(
+                        bottom: 12,
+                        right: 12,
+                        child: GestureDetector(
+                          onTap: controller.pickImageFromGallery,
+                          child: Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF214D3A),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.upload,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ],
+            ),
+
+            const SizedBox(height: 20),
+
+            Center(
+              child:
+              TextButton(
+                  onPressed: (){},
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFF214D3A),
+                    side: const BorderSide(color: Colors.black),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add_box_rounded,
+                        color: Colors.white,
+                        size: 22,
+                      ),
+                      Text("Tambahkan Menu",
+                          style: TextStyle(color:  Colors.white)
+                      )
+                    ],
+                  )
+              ),
+            )
           ],
         ),
       ),
