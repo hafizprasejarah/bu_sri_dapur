@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class PemesananController extends GetxController {
-  //TODO: Implement PemesananController
 
   final count = 0.obs;
   @override

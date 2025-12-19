@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341768164840",
+    "project_id": "dapur-bu-sri-8666d",
+    "storage_bucket": "dapur-bu-sri-8666d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341768164840:android:d110c17a62db7c82bec05d",
+        "android_client_info": {
+          "package_name": "com.example.bu_sri_dapur"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC7LRVRbhEdYgsq5ZHAl4IGzO5fAp2iz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

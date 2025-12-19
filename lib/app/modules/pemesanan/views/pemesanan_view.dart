@@ -20,6 +20,7 @@ class PemesananView extends GetView<PemesananController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(

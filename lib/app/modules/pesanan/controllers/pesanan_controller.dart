@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class PesananController extends GetxController {
-  // ================== VIEW SWITCHING ==================
   RxString selectedView = "Makanan".obs;
 
   RxList<bool> selectedMakanan = <bool>[].obs;

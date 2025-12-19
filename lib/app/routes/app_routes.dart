@@ -13,6 +13,7 @@ abstract class Routes {
   static const PEMBAYARAN = _Paths.PEMBAYARAN;
   static const TAMBAHMENU = _Paths.TAMBAHMENU;
   static const EDITMENU = _Paths.EDITMENU;
+  static const RE_ORDER = _Paths.RE_ORDER;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const PEMBAYARAN = '/pembayaran';
   static const TAMBAHMENU = '/tambahmenu';
   static const EDITMENU = '/editmenu';
+  static const RE_ORDER = '/re-order';
 }

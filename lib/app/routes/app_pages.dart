@@ -18,6 +18,8 @@ import '../modules/pesanan/bindings/pesanan_binding.dart';
 import '../modules/pesanan/views/pesanan_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
+import '../modules/re-order/bindings/re_order_binding.dart';
+import '../modules/re-order/views/re_order_view.dart';
 import '../modules/tambahmenu/bindings/tambahmenu_binding.dart';
 import '../modules/tambahmenu/views/tambahmenu_view.dart';
 
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.EDITMENU,
       page: () => const EditmenuView(),
       binding: EditmenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.RE_ORDER,
+      page: () => const ReOrderView(),
+      binding: ReOrderBinding(),
     ),
   ];
 }

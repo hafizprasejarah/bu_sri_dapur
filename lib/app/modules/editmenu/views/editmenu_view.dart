@@ -5,7 +5,6 @@ import '../controllers/editmenu_controller.dart';
 class EditmenuView extends GetView<EditmenuController> {
   const EditmenuView({super.key});
 
-
   @override
   Widget build(BuildContext context) {
 

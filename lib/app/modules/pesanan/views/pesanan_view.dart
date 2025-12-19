@@ -25,7 +25,7 @@ class PesananView extends GetView<PesananController> {
               controller.showOrderBar.value = false;
               controller.showDetailBottom.value = false;
 
-              // RESET DATA ORDER
+
               controller.selectedMakanan.value =
               List<bool>.filled(controller.makanan.length, false);
 
@@ -46,11 +46,11 @@ class PesananView extends GetView<PesananController> {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
+
               controller.StatusPembayaran.value = "";
               controller.showOrderBar.value = false;
               controller.showDetailBottom.value = false;
 
-              // RESET DATA ORDER
               controller.selectedMakanan.value =
               List<bool>.filled(controller.makanan.length, false);
 
@@ -351,7 +351,7 @@ Widget _orderDetailBottomBar() {
         ),
         const SizedBox(height: 8),
 
-        // LIST PESANAN (lebih besar)
+
         Expanded(
           child: ListView.builder(
             padding: EdgeInsets.zero,
